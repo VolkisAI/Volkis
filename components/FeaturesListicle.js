@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronUp } from "lucide-react";
 
 // List of features to display:
 // - name: name of the feature
@@ -324,7 +327,7 @@ const features = [
         <ul className="space-y-2">
           {[
             "Components, animations & sections (like the pricing page below)",
-            "20+ themes with daisyUI",
+            "Beautiful UI with shadcn/ui components",
             "Automatic dark mode",
           ].map((item) => (
             <li key={item} className="flex items-center gap-3">
@@ -405,11 +408,9 @@ const FeaturesListicle = () => {
     }, 5000);
 
     try {
-      // stop the interval when the user scroll after the featuresRef element
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            console.log("STOP AUTO CHANGE");
             clearInterval(interval);
           }
         },
@@ -432,71 +433,68 @@ const FeaturesListicle = () => {
   return (
     <section className="py-24" id="features">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-base-100 max-md:px-8 max-w-3xl">
-          <p className="text-accent font-medium text-sm font-mono mb-3">
+        <div className="bg-background max-md:px-8 max-w-3xl">
+          <p className="text-primary font-medium text-sm font-mono mb-3">
             const launch_time = &quot;Today&quot;;
           </p>
           <h2 className="font-extrabold text-3xl lg:text-5xl tracking-tight mb-8">
-            {/* 💡 COPY TIP: Remind visitors about the value of your product. Why do they need it? */}
             Supercharge your app instantly, launch faster, make $
           </h2>
-          <div className="text-base-content/80 leading-relaxed mb-8 lg:text-lg">
-            {/* 💡 COPY TIP: Explain how your product delivers what you promise in the headline. */}
+          <p className="text-muted-foreground leading-relaxed mb-8 lg:text-lg">
             Login users, process payments and send emails at lightspeed. Spend
             your time building your startup, not integrating APIs. ShipFast
             provides you with the boilerplate code you need to launch, FAST.
-          </div>
+          </p>
         </div>
       </div>
 
       <div>
         <div className="grid grid-cols-4 md:flex justify-start gap-4 md:gap-12 max-md:px-8 max-w-3xl mx-auto mb-8">
           {features.map((feature) => (
-            <span
+            <Button
               key={feature.name}
+              variant="ghost"
+              className="flex flex-col items-center justify-center gap-3 p-2 h-auto"
               onClick={() => {
                 if (!hasClicked) setHasClicked(true);
                 setFeatureSelected(feature.name);
               }}
-              className={`flex flex-col items-center justify-center gap-3 select-none cursor-pointer p-2 duration-200 group`}
             >
               <span
-                className={`duration-100 ${
+                className={`duration-200 ${
                   featureSelected === feature.name
                     ? "text-primary"
-                    : "text-base-content/30 group-hover:text-base-content/50"
+                    : "text-muted-foreground"
                 }`}
               >
                 {feature.svg}
               </span>
               <span
-                className={`font-semibold text-sm ${
+                className={`text-sm font-semibold ${
                   featureSelected === feature.name
                     ? "text-primary"
-                    : "text-base-content/50"
+                    : "text-muted-foreground"
                 }`}
               >
                 {feature.name}
               </span>
-            </span>
+            </Button>
           ))}
         </div>
-        <div className="bg-base-200">
+        <div className="bg-muted">
           <div className="max-w-3xl mx-auto flex flex-col md:flex-row justify-center md:justify-start md:items-center gap-12">
             <div
-              className="text-base-content/80 leading-relaxed space-y-4 px-12 md:px-0 py-12 max-w-xl animate-opacity"
+              className="text-muted-foreground leading-relaxed space-y-4 px-12 md:px-0 py-12 max-w-xl animate-in fade-in-50"
               key={featureSelected}
             >
-              <h3 className="font-semibold text-base-content text-lg">
+              <h3 className="font-semibold text-foreground text-lg">
                 {features.find((f) => f.name === featureSelected)["name"]}
               </h3>
-
               {features.find((f) => f.name === featureSelected)["description"]}
             </div>
           </div>
         </div>
       </div>
-      {/* Just used to know it's the end of the autoscroll feature (optional, see useEffect) */}
       <p className="opacity-0" ref={featuresEndRef}></p>
     </section>
   );

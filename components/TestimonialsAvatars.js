@@ -1,9 +1,9 @@
 import Image from "next/image";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const avatars = [
   {
     alt: "User",
-    // Ideally, load from a statically generated image for better SEO performance (import userImage from "@/public/userImage.png")
     src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3276&q=80",
   },
   {
@@ -27,31 +27,27 @@ const avatars = [
 const TestimonialsAvatars = ({ priority = false }) => {
   return (
     <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-3">
-      {/* AVATARS */}
-      <div className={`-space-x-5 avatar-group justy-start`}>
+      <div className="-space-x-4 flex">
         {avatars.map((image, i) => (
-          <div className="avatar w-12 h-12" key={i}>
-            <Image
+          <Avatar key={i} className="w-12 h-12 border-2 border-background">
+            <AvatarImage
               src={image.src}
               alt={image.alt}
               priority={priority}
-              width={50}
-              height={50}
             />
-          </div>
+          </Avatar>
         ))}
       </div>
 
-      {/* RATING */}
       <div className="flex flex-col justify-center items-center md:items-start gap-1">
-        <div className="rating">
+        <div className="flex">
           {[...Array(5)].map((_, i) => (
             <svg
+              key={i}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
               className="w-5 h-5 text-yellow-500"
-              key={i}
             >
               <path
                 fillRule="evenodd"
@@ -62,9 +58,8 @@ const TestimonialsAvatars = ({ priority = false }) => {
           ))}
         </div>
 
-        <div className="text-base text-base-content/80">
-          <span className="font-semibold text-base-content">32</span> makers
-          ship faster
+        <div className="text-base text-muted-foreground">
+          <span className="font-semibold text-foreground">32</span> makers ship faster
         </div>
       </div>
     </div>

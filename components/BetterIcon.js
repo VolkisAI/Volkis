@@ -1,11 +1,17 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 
 // A better way to illustrate with icons
 // Pass any SVG icon as children (recommended width/height : w-6 h-6)
 // By default, it's using your primary color for styling
-const BetterIcon = ({ children }) => {
+const BetterIcon = ({ children, className }) => {
   return (
-    <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-primary/20 text-primary">
+    <div 
+      className={cn(
+        "w-12 h-12 inline-flex items-center justify-center rounded-full bg-primary/10 text-primary",
+        className
+      )}
+    >
       {children}
     </div>
   );

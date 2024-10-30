@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Play, Pause } from "lucide-react";
 import config from "@/config";
 
 // Use this object to add an icon to the testimonial (optional) like the Product Hunt logo for instance. Only change the values if you add more referrings sites (currently Twitter & Product Hunt)
@@ -146,51 +150,38 @@ const Testimonial = ({ i }) => {
 
   return (
     <li key={i}>
-      <figure className="relative h-full p-6 bg-base-100 rounded-lg">
-        <blockquote className="relative">
-          <p className="text-sm text-base-content/80">{testimonial.text}</p>
-        </blockquote>
-        <figcaption className="relative flex items-center justify-start gap-4 pt-4 mt-4 border-t border-base-content/5">
-          <div className="overflow-hidden rounded-full bg-base-300 shrink-0">
-            {testimonial.img ? (
-              <Image
-                className="w-10 h-10 rounded-full object-cover"
-                src={list[i].img}
-                alt={`${list[i].name}'s testimonial for ${config.appName}`}
-                width={48}
-                height={48}
-              />
-            ) : (
-              <span className="w-10 h-10 rounded-full flex justify-center items-center text-lg font-medium bg-base-300">
-                {testimonial.name.charAt(0)}
-              </span>
-            )}
-          </div>
-          <div className="w-full flex items-end justify-between gap-2">
-            <div>
-              <div className="text-sm font-medium text-base-content">
-                {testimonial.name}
-              </div>
-              {testimonial.username && (
-                <div className="mt-0.5 text-sm text-base-content/80">
-                  @{testimonial.username}
+      <Card className="h-full">
+        <CardContent className="p-6">
+          <blockquote className="relative">
+            <p className="text-sm text-muted-foreground">{testimonial.text}</p>
+          </blockquote>
+          <div className="relative flex items-center justify-start gap-4 pt-4 mt-4 border-t">
+            <div className="flex items-center justify-between gap-4 w-full">
+              <div>
+                <div className="font-medium text-foreground">
+                  {testimonial.name}
                 </div>
+                {testimonial.username && (
+                  <div className="mt-0.5 text-sm text-muted-foreground">
+                    @{testimonial.username}
+                  </div>
+                )}
+              </div>
+
+              {testimonial.img ? (
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={testimonial.img} alt={testimonial.name} />
+                  <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+              ) : (
+                <Avatar className="h-10 w-10">
+                  <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                </Avatar>
               )}
             </div>
-
-            {testimonial.link && testimonial.type?.svg && (
-              <a
-                href={testimonial.link}
-                target="_blank"
-                className="shrink-0 "
-                aria-label={testimonial.type?.ariaLabel}
-              >
-                {testimonial.type?.svg}
-              </a>
-            )}
           </div>
-        </figcaption>
-      </figure>
+        </CardContent>
+      </Card>
     </li>
   );
 };
@@ -224,105 +215,82 @@ const VideoTestimonial = ({ i }) => {
   if (!testimonial) return null;
 
   return (
-    <li
-      key={i}
-      className="break-inside-avoid max-md:flex justify-center bg-base-100 rounded-lg overflow-hidden flex flex-col"
-    >
-      <div className="relative w-full">
-        {isLoading && (
-          <span className="z-40 !h-24 !w-24 !bg-gray-50 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-ring"></span>
-        )}
-        <video
-          className="w-full"
-          ref={vidRef}
-          poster={testimonial.videoPoster}
-          preload="metadata"
-          playsInline
-          width={testimonial.videoWidth}
-          height={testimonial.videoHeight}
-          onLoadedData={() => {
-            console.log("Video is loaded!");
-            setIsLoading(false);
-          }}
-        >
-          <source
-            src={testimonial.videoSrc}
-            type={testimonial.videoType || "video/mp4"}
-          />
-          Your browser does not support the videos
-        </video>
+    <li key={i} className="break-inside-avoid max-md:flex justify-center">
+      <Card className="overflow-hidden">
+        <CardContent className="p-0">
+          {isLoading && (
+            <span className="z-40 !h-24 !w-24 !bg-gray-50 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-ring"></span>
+          )}
+          <video
+            className="w-full"
+            ref={vidRef}
+            poster={testimonial.videoPoster}
+            preload="metadata"
+            playsInline
+            width={testimonial.videoWidth}
+            height={testimonial.videoHeight}
+            onLoadedData={() => {
+              console.log("Video is loaded!");
+              setIsLoading(false);
+            }}
+          >
+            <source
+              src={testimonial.videoSrc}
+              type={testimonial.videoType || "video/mp4"}
+            />
+            Your browser does not support the videos
+          </video>
 
-        {!isPlaying && (
-          <div className="absolute bottom-0 -inset-x-4 bg-gray-900/50 blur-lg h-24 translate-y-1/4 animate-opacity"></div>
-        )}
+          {!isPlaying && (
+            <div className="absolute bottom-0 -inset-x-4 bg-gray-900/50 blur-lg h-24 translate-y-1/4 animate-opacity"></div>
+          )}
 
-        <div className="absolute w-full bottom-0 z-20">
-          <div className="flex justify-between items-end p-4">
-            <button
-              className="group cursor-pointer"
-              type="button"
-              title="Play video"
-              aria-label="Play video"
-              onClick={handlePlayVideo}
-            >
-              {isPlaying ? (
-                // PAUSE
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className=" w-14 h-14 fill-gray-50 group-hover:scale-[1.05] duration-100 ease-in drop-shadow-lg animate-opacity"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0A.75.75 0 0 1 15 4.5h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              ) : (
-                // PLAY
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-14 h-14 fill-gray-50 group-hover:scale-[1.05] duration-100 ease-in drop-shadow-lg animate-opacity"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              )}
-            </button>
+          <div className="absolute w-full bottom-0 z-20">
+            <div className="flex justify-between items-end p-4">
+              <Button
+                className="group cursor-pointer"
+                type="button"
+                title="Play video"
+                aria-label="Play video"
+                onClick={handlePlayVideo}
+              >
+                {isPlaying ? (
+                  // PAUSE
+                  <Pause className="w-14 h-14 fill-gray-50 group-hover:scale-[1.05] duration-100 ease-in drop-shadow-lg animate-opacity" />
+                ) : (
+                  // PLAY
+                  <Play className="w-14 h-14 fill-gray-50 group-hover:scale-[1.05] duration-100 ease-in drop-shadow-lg animate-opacity" />
+                )}
+              </Button>
 
-            {!isPlaying && (
-              <div className="animate-opacity text-right">
-                <p className="text-gray-50 font-medium drop-shadow">
-                  {testimonial.name}
-                </p>
-                <div className="rating">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="w-5 h-5 text-accent drop-shadow"
-                      key={i}
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ))}
+              {!isPlaying && (
+                <div className="animate-opacity text-right">
+                  <p className="text-gray-50 font-medium drop-shadow">
+                    {testimonial.name}
+                  </p>
+                  <div className="rating">
+                    {[...Array(5)].map((_, i) => (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className="w-5 h-5 text-accent drop-shadow"
+                        key={i}
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       <div className="relative z-20 bg-accent text-accent-content text-base leading-tight font-medium p-4 select-none">
         <p>&quot;{testimonial.text}&quot;</p>
@@ -333,26 +301,21 @@ const VideoTestimonial = ({ i }) => {
 
 const Testimonials11 = () => {
   return (
-    <section className="bg-base-200" id="testimonials">
+    <section className="bg-muted/50" id="testimonials">
       <div className="py-24 px-8 max-w-7xl mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-          <div className="mb-8">
-            <h2 className="sm:text-5xl text-4xl font-extrabold text-base-content">
-              212 makers are already shipping faster!
-            </h2>
-          </div>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-base-content/80">
+          <h2 className="sm:text-5xl text-4xl font-extrabold tracking-tight mb-4">
+            212 makers are already shipping faster!
+          </h2>
+          <p className="lg:w-2/3 mx-auto text-muted-foreground">
             Don&apos;t take our word for it. Here&apos;s what they have to say
             about {config.appName}.
           </p>
         </div>
 
-        <ul
-          role="list"
-          className="grid max-w-2xl grid-cols-1 gap-6 mx-auto sm:gap-8 md:grid-cols-2 lg:max-w-none lg:grid-cols-4"
-        >
+        <ul className="grid max-w-2xl grid-cols-1 gap-6 mx-auto sm:gap-8 md:grid-cols-2 lg:max-w-none lg:grid-cols-4">
           <li>
-            <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
+            <ul className="flex flex-col gap-y-6 sm:gap-y-8">
               {[...Array(3)].map((e, i) => (
                 <Testimonial key={i} i={i} />
               ))}

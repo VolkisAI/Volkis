@@ -1,5 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+"use client";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronUp } from "lucide-react";
 
 const features = [
   {
@@ -134,7 +138,7 @@ const features = [
                     <p className="opacity-80">Make cards more accessible</p>
                   </div>
                   <button
-                    className={`px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent ${theme.buttonStyles}`}
+                    className={`px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +163,7 @@ const features = [
                     <p className="opacity-80">Make cards more accessible</p>
                   </div>
                   <button
-                    className={`px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent ${theme.buttonStyles}`}
+                    className={`px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -240,31 +244,34 @@ const features = [
     ),
   },
 ];
+
 const FeaturesGrid = () => {
   return (
-    <section className="flex justify-center items-center w-full bg-base-200/50 text-base-content py-20 lg:py-32">
+    <section className="flex justify-center items-center w-full bg-muted/50 py-20 lg:py-32">
       <div className="flex flex-col max-w-[82rem] gap-16 md:gap-20 px-4">
         <h2 className="max-w-3xl font-black text-4xl md:text-6xl tracking-[-0.01em]">
-          Ship features <br /> users{" "}
-          <span className="underline decoration-dashed underline-offset-8 decoration-base-300">
-            really want
+          Ship features{" "}
+          <span className="underline decoration-dashed underline-offset-8 decoration-muted">
+            users really want
           </span>
         </h2>
-        <div className="flex flex-col w-full h-fit gap-4 lg:gap-10 text-text-default max-w-[82rem]">
+        <div className="flex flex-col w-full h-fit gap-4 lg:gap-10 max-w-[82rem]">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-10">
-            {features.map((feature) => (
-              <div
+            {features.map((feature, i) => (
+              <Card
                 key={feature.title}
-                className={`${feature.styles} rounded-3xl flex flex-col gap-6 w-full h-[22rem] lg:h-[25rem] pt-6 overflow-hidden group`}
+                className={`${feature.styles} overflow-hidden group h-[22rem] lg:h-[25rem]`}
               >
-                <div className="px-6 space-y-2">
-                  <h3 className="font-bold text-xl lg:text-3xl tracking-tight">
-                    {feature.title}
-                  </h3>
-                  <p className="opacity-80">{feature.description}</p>
-                </div>
-                {feature.demo}
-              </div>
+                <CardContent className="h-full flex flex-col gap-6 pt-6">
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-xl lg:text-3xl tracking-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </div>
+                  {feature.demo}
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
