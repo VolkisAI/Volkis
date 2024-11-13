@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "savedAt": "2024-03-14T12:00:00.000Z",
+  "nodes": [
+    {
+      "id": "node-1",
+      "type": "start",
+      "title": "Start Process",
+      "x": 100,
+      "y": 100,
+      "note": ""
+    },
+    {
+      "id": "node-2",
+      "type": "condition",
+      "title": "Check Condition",
+      "x": 400,
+      "y": 100,
+      "note": ""
+    },
+    {
+      "id": "node-3",
+      "type": "process",
+      "title": "Process A",
+      "x": 700,
+      "y": 50,
+      "note": "This process handles the positive case..."
+    },
+    {
+      "id": "node-4",
+      "type": "process",
+      "title": "Process B",
+      "x": 700,
+      "y": 200,
+      "note": "This process handles the negative case..."
+    }
+  ],
+  "connections": [
+    {
+      "id": "conn-1",
+      "sourceId": "node-1",
+      "sourceHandle": "right",
+      "targetId": "node-2",
+      "targetHandle": "left"
+    },
+    {
+      "id": "conn-2",
+      "sourceId": "node-2",
+      "sourceHandle": "right",
+      "targetId": "node-3",
+      "targetHandle": "left",
+      "label": "Yes"
+    },
+    {
+      "id": "conn-3",
+      "sourceId": "node-2",
+      "sourceHandle": "right",
+      "targetId": "node-4",
+      "targetHandle": "left",
+      "label": "No"
+    }
+  ]
+} 

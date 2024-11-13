@@ -1,0 +1,1 @@
+We are using hte updated supabase/ssr If you need to, please read the @Web @https://supabase.com/docs/guides/auth/server-side @https://supabase.com/docs/guides/auth/server-side/nextjs We are migrating from auth helpers to ssr, the details are here: @https://supabase.com/docs/guides/auth/server-side/migrating-to-ssr-from-auth-helpers

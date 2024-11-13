@@ -2,21 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* DaisyUI theme variables can be customized here */
+}
+
 html,
 body {
   scroll-behavior: smooth !important;
 }
 
-/* It makes the HTML progress bar filling smooth when value change. */
+/* Progress bar animation */
 progress::-webkit-progress-value {
   transition: 0.6s width ease-out;
 }
 
-@layer base {
+/* Custom utility classes */
+@layer components {
   .btn-gradient {
-    @apply !bg-gradient !bg-[length:300%_300%] hover:saturate-[1.2] shadow duration-100 !border-0 !border-transparent !bg-transparent animate-shimmer disabled:!bg-none disabled:!bg-gray-500/30  !text-white;
+    @apply bg-gradient-to-r from-primary to-secondary hover:saturate-[1.2] shadow duration-100 border-0 border-transparent text-white;
+    background-size: 300% 300%;
+    animation: shimmer 2s linear infinite;
   }
+
+  .btn-gradient:disabled {
+    @apply bg-none bg-gray-500/30;
+  }
+
   .btn {
-    @apply !capitalize;
+    @apply capitalize;
   }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+/* Animation utility classes */
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.2s ease-out;
+}
+
+.animate-dash {
+  animation: dash 1s linear infinite;
+}
+
+/* DaisyUI theme customization */
+[data-theme="light"] {
+  /* Light theme custom properties */
+}
+
+[data-theme="dark"] {
+  /* Dark theme custom properties */
+}
+
+.bg-grid-pattern {
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+  background-color: white;
 }

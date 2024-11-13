@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-code",
+  "name": "ship-fast-code",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,29 +15,25 @@
     "@supabase/supabase-js": "^2.45.0",
     "axios": "^1.6.8",
     "crisp-sdk-web": "^1.0.22",
-    "daisyui": "^4.0.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
-    "file-saver": "^2.0.5",
     "form-data": "^4.0.0",
-    "lucide-react": "^0.454.0",
     "mailgun.js": "^9.4.1",
-    "next": "^14.0.0",
+    "next": "^14.1.4",
     "next-sitemap": "^4.2.3",
     "nextjs-toploader": "^1.6.11",
     "nodemailer": "^6.9.13",
-    "openai": "^4.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.26.3",
     "stripe": "^13.11.0"
   },
   "devDependencies": {
-    "@types/file-saver": "^2.0.7",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.5"
+    "autoprefixer": "^10.4.19",
+    "daisyui": "^4.10.1",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
   }
 }

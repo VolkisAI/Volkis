@@ -1,0 +1,93 @@
+{
+  "nodes": [
+    {
+      "id": "node-1731526029051",
+      "title": "Marketing Workflow",
+      "type": "start",
+      "x": 78,
+      "y": 205.5,
+      "note": ""
+    },
+    {
+      "id": "node-1731526053545",
+      "title": "Setup facebook ads",
+      "type": "process",
+      "x": 379,
+      "y": 434.5,
+      "note": ""
+    },
+    {
+      "id": "node-1731526078322",
+      "title": "Check the ads",
+      "type": "action",
+      "x": 682,
+      "y": 156.5,
+      "note": ""
+    },
+    {
+      "id": "node-1731526088402",
+      "title": "Are they profitable",
+      "type": "condition",
+      "x": 930,
+      "y": 382.5,
+      "note": ""
+    },
+    {
+      "id": "node-1731526105735",
+      "title": "Scale the budget",
+      "type": "process",
+      "x": 1320,
+      "y": 224.5,
+      "note": ""
+    },
+    {
+      "id": "node-1731526124486",
+      "title": "Test new creative",
+      "type": "process",
+      "x": 1368,
+      "y": 511.5,
+      "note": ""
+    }
+  ],
+  "connections": [
+    {
+      "id": "conn-1731526053546",
+      "sourceId": "node-1731526029051",
+      "sourceHandle": "right",
+      "targetId": "node-1731526053545",
+      "targetHandle": "left"
+    },
+    {
+      "id": "conn-1731526078322",
+      "sourceId": "node-1731526053545",
+      "sourceHandle": "right",
+      "targetId": "node-1731526078322",
+      "targetHandle": "left"
+    },
+    {
+      "id": "conn-1731526088402",
+      "sourceId": "node-1731526078322",
+      "sourceHandle": "right",
+      "targetId": "node-1731526088402",
+      "targetHandle": "left"
+    },
+    {
+      "id": "conn-1731526118493",
+      "sourceId": "node-1731526088402",
+      "sourceHandle": "right-yes",
+      "targetId": "node-1731526105735",
+      "targetHandle": "left",
+      "label": "Yes"
+    },
+    {
+      "id": "conn-1731526131696",
+      "sourceId": "node-1731526088402",
+      "sourceHandle": "right-no",
+      "targetId": "node-1731526124486",
+      "targetHandle": "left",
+      "label": "No"
+    }
+  ],
+  "version": "1.0",
+  "savedAt": "2024-11-13T19:29:35.202Z"
+}

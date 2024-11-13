@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {
+      "id": "node-1731520500682",
+      "title": "New Process",
+      "type": "process",
+      "x": 563,
+      "y": 330.5,
+      "note": "test"
+    }
+  ],
+  "connections": [],
+  "version": "1.0",
+  "savedAt": "2024-11-13T17:56:36.275Z"
+}
